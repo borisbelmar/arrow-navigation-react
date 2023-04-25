@@ -1,35 +1,35 @@
 import type { FocusableElementOptions, FocusableGroupOptions } from '@/types'
 import { getArrowNavigation } from '@arrow-navigation/core'
-import { useCallback, useEffect, useRef } from 'react'
+import { RefObject, useCallback, useEffect } from 'react'
 
 interface Props {
-  id: string
+  groupRef: RefObject<HTMLElement>
   options?: FocusableGroupOptions
 }
 
-export default function useFocusableGroupContext({ id, options }: Props) {
-  const ref = useRef<HTMLDivElement>(null)
-
+export default function useFocusableGroupContext({ groupRef, options }: Props) {
   const arrowNavigationApi = getArrowNavigation()
 
   const registerElement = useCallback((
     element: HTMLElement,
     elOptions?: FocusableElementOptions
   ) => {
-    arrowNavigationApi.registerElement(element, id, elOptions)
-  }, [])
+    arrowNavigationApi.registerElement(element, groupRef.current?.id || '', elOptions)
+  }, [arrowNavigationApi, groupRef])
 
   const unregisterElement = useCallback((element: HTMLElement) => {
     arrowNavigationApi.unregisterElement(element)
-  }, [])
+  }, [arrowNavigationApi])
 
   useEffect(() => {
-    arrowNavigationApi.registerGroup(ref.current as HTMLElement, options)
-  }, [id])
+    if (!groupRef.current?.id) {
+      throw new Error('groupRef must be a ref object with a current property containing a HTMLElement with an id')
+    }
+    arrowNavigationApi.registerGroup(groupRef.current as HTMLElement, options)
+  }, [groupRef, options, arrowNavigationApi])
 
   return {
-    ref,
-    groupId: id,
+    groupId: groupRef.current?.id || '',
     registerElement,
     unregisterElement
   }

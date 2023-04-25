@@ -1,27 +1,25 @@
 import { useFocusableGroup } from '@/components/FocusableGroup/FocusableGroup'
 import type { FocusableElementOptions } from '@/types'
-import { useEffect, useRef } from 'react'
+import { RefObject, useEffect } from 'react'
 
 type Props = {
+  ref: RefObject<HTMLElement>
   options?: FocusableElementOptions
 }
 
-export default function useFocusableElement({ options }: Props = {}) {
-  const ref = useRef<HTMLElement>(null)
+export default function useFocusableElement({ ref, options }: Props) {
   const { registerElement, unregisterElement } = useFocusableGroup()
 
   useEffect(() => {
-    const element = ref.current
+    const element = ref?.current
     if (element) {
-      registerElement(ref.current, options)
+      registerElement(element, options)
     }
 
     return () => {
       if (element) {
-        unregisterElement(ref.current)
+        unregisterElement(element)
       }
     }
-  }, [options])
-
-  return ref
+  }, [options, registerElement, unregisterElement, ref])
 }

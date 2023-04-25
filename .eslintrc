@@ -1,7 +1,9 @@
 {
   "extends": [
-    "airbnb-base",
-    "plugin:@typescript-eslint/recommended"
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "env": {
@@ -53,6 +55,7 @@
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/comma-dangle": [2, "never"],
     "@typescript-eslint/no-unused-vars": [1, { "argsIgnorePattern": "^_" }],
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
     "import/extensions": [
       "error",
       "ignorePackages",
