@@ -13,7 +13,7 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
-  coverageReporters: ['json', 'lcov', 'text', 'clover'],
+  coverageReporters: ['cobertura', 'text'],
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
