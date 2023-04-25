@@ -1,4 +1,4 @@
-import { createContext, createElement, ReactNode, useContext } from 'react'
+import { createContext, createElement, ReactNode, useContext, useMemo, useRef } from 'react'
 import type { FocusableElementOptions, FocusableGroupOptions } from '@/types'
 import useFocusableGroupContext from './hooks/useFocusableGroupContext'
 
@@ -24,26 +24,32 @@ export function FocusableGroup({
   options,
   ...props
 }: Props) {
+  const ref = useRef(null)
+
   const {
-    ref,
     registerElement,
     unregisterElement
-  } = useFocusableGroupContext({ id, options })
+  } = useFocusableGroupContext({ groupRef: ref, options })
 
-  return createElement(as, {
-    ...props,
-    ref,
-    id,
-    children: (
-      <GroupContext.Provider value={{
-        groupId: id,
-        registerElement,
-        unregisterElement
-      }}>
+  const value = useMemo(() => ({
+    groupId: id,
+    registerElement,
+    unregisterElement
+  }), [id, registerElement, unregisterElement])
+
+  return createElement(
+    as,
+    {
+      ...props,
+      ref,
+      id
+    },
+    (
+      <GroupContext.Provider value={value}>
         {children}
       </GroupContext.Provider>
     )
-  })
+  )
 }
 
 export function useFocusableGroup() {

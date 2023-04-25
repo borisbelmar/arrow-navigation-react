@@ -1,9 +1,31 @@
+/** @returns {Promise<import('jest').Config>} */
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  coverageReporters: [
-    'text',
-    'cobertura'
-  ],
-  setupFilesAfterEnv: ['./src/setupTests.ts']
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  transform: {
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
+      tsconfig: 'tsconfig.json'
+    }]
+  },
+  watchPathIgnorePatterns: ['node_modules', 'dist', 'example', 'lib'],
+  testMatch: ['**/__tests__/**/*.+(ts|tsx|js)', '**/?(*.)+(spec|test).+(ts|tsx|js)'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1'
+  },
+  coverageReporters: ['json', 'lcov', 'text', 'clover'],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/**/index.{ts,tsx}',
+    '!src/**/dist.ts',
+    '!src/**/stories.{ts,tsx}',
+    '!src/**/types.{ts,tsx}',
+    '!src/**/mock.{ts,tsx}',
+    '!src/**/mocks.{ts,tsx}',
+    '!src/**/mocks/**',
+    '!src/**/stories/**',
+    '!src/**/types/**'
+  ]
 }

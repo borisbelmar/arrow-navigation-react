@@ -1,4 +1,4 @@
-import { createElement } from 'react'
+import { createElement, useRef } from 'react'
 import { useFocusableElement } from '..'
 import type { FocusableElementOptions } from '../types'
 
@@ -14,11 +14,12 @@ export default function FocusableElement({
   options,
   ...props
 }: Props) {
-  const ref = useFocusableElement({ options })
+  const ref = useRef(null)
+  useFocusableElement({ options, ref })
 
-  return createElement(as, {
-    ...props,
-    ref,
+  return createElement(
+    as,
+    { ...props, ref },
     children
-  })
+  )
 }
