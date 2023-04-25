@@ -2,6 +2,9 @@
   "name": "@arrow-navigation/react",
   "version": "1.0.0",
   "description": "A light and performant React implementation for @arrow-navigation/core package.",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup ./src/index.ts --format esm,cjs --dts --minify --external react",
     "watch": "tsup ./src/index.ts --format esm,cjs --dts --sourcemap --minify --external react --watch",
