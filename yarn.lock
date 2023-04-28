@@ -15,10 +15,10 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@arrow-navigation/core@1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@arrow-navigation/core/-/core-1.2.3.tgz#b1b50efa87f8ab4d113cb19746f42c693a08c7c7"
-  integrity sha512-wQSaTJIKvmVsjRnHtcLXlz6VSEthTdlJnDxdVAKltzkOMdYvrbCLjZCEdRF7Zx7gxKQfUpr5IEmWLLQO0ElCTA==
+"@arrow-navigation/core@1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@arrow-navigation/core/-/core-1.2.4.tgz#d4abb638105ff33eb19ef2fc18f18e90e02e789b"
+  integrity sha512-PXMRwGitXBadVRrnCZuxqB4d/hJkDOHhixfs/VBlmqrBsZ1KRNzlb46c+qEELX5X9AKqRUuOyWLXg6+uZsnHCw==
 
 "@aw-web-design/x-default-browser@1.4.88":
   version "1.4.88"
@@ -1220,11 +1220,6 @@
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@fal-works/esbuild-plugin-global-externals/-/esbuild-plugin-global-externals-2.1.2.tgz#c05ed35ad82df8e6ac616c68b92c2282bd083ba4"
   integrity sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==
-
-"@hookform/resolvers@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.0.1.tgz#e030f8ef5c407beb5be9bbafd68059cbdd02e0cb"
-  integrity sha512-n5oOt0cLw9mQNW3/k9zWaPsNWQcc0k6Jpc7XUrg2Q/AqqsHp3IVa1juqHCxczXI6uXHBa69ILc4pdtsRGyuzsw==
 
 "@humanwhocodes/config-array@^0.11.6":
   version "0.11.8"

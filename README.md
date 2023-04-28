@@ -69,8 +69,8 @@ The `FocusableGroup` component will receive all HTML attributes and events for t
 | id | string | - | The group id. Must be unique |
 | as | string | div | The HTML tag to be used as wrapper |
 | options | object | - | The options for the group. |
-| options.onFocus | function | - | Callback function to be called when the group receives focus |
-| options.onBlur | function | - | Callback function to be called when the group loses focus |
+| options.onFocus | function | - | Callback function to be called when the group receives focus. It returns a object with focus result that includes prev, current and direction |
+| options.onBlur | function | - | Callback function to be called when the group loses focus. It returns a object with focus result that includes next, current and direction |
 | options.firstElement | string | - | The id of the first element to receive focus when the group receives focus |
 | options.nextGroupByDirection | string | - | The direction to navigate when the last element of the group receives focus. Possible values are: 'up', 'down', 'left' and 'right' |
 | options.saveLast | boolean | false | If true, the last focused element will be saved in firstElement |
@@ -91,8 +91,8 @@ The `FocusableElement` component will receive all HTML attributes and events for
 | id | string | - | The element id. Must be unique |
 | as | string | div | The HTML tag to be used as wrapper |
 | options | object | - | The options for the element. |
-| options.onFocus | function | - | Callback function to be called when the element receives focus |
-| options.onBlur | function | - | Callback function to be called when the element loses focus |
+| options.onFocus | function | - | Callback function to be called when the element receives focus. It returns a object with focus result that includes prev, current and direction |
+| options.onBlur | function | - | Callback function to be called when the element loses focus. It returns a object with focus result that includes next, current and direction |
 | options.nextElementByDirection | string | - | The direction to navigate when the element receives focus. Possible values are: 'up', 'down', 'left' and 'right' |
 
 ## Listeners
