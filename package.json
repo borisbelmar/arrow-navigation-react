@@ -33,7 +33,7 @@
   "author": "Boris Belmar <borisbelmarm@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@arrow-navigation/core": "1.2.3"
+    "@arrow-navigation/core": "1.2.4"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17 || ^18"
