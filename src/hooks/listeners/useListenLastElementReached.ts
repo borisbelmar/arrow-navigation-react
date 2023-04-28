@@ -17,7 +17,8 @@ export default function useListenLastElementReached(
   const api = getArrowNavigation()
 
   useEffect(() => {
-    const handler = (focusedElement: FocusableElement) => {
+    const handler = (focusedElement: FocusableElement, dir: Direction) => {
+      if (!dir) return
       if (group?.toString() && focusedElement.group !== group) return
       if (!elementPattern || focusedElement.el.id.match(elementPattern)) {
         const noNextElement = api.getNextElement({ direction, inGroup }) === null

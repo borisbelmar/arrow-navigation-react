@@ -1,6 +1,6 @@
 {
   "name": "@arrow-navigation/react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A light and performant React implementation for @arrow-navigation/core package.",
   "publishConfig": {
     "access": "public"
@@ -33,7 +33,7 @@
   "author": "Boris Belmar <borisbelmarm@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@arrow-navigation/core": "1.2.3"
+    "@arrow-navigation/core": "1.2.4"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17 || ^18"
@@ -42,7 +42,6 @@
     "@babel/preset-env": "7.21.4",
     "@babel/preset-react": "7.18.6",
     "@babel/preset-typescript": "7.21.4",
-    "@hookform/resolvers": "3.0.1",
     "@storybook/addon-essentials": "7.0.2",
     "@storybook/addon-interactions": "7.0.2",
     "@storybook/addon-links": "7.0.2",

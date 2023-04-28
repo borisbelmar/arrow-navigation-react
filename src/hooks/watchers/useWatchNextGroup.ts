@@ -12,6 +12,7 @@ export default function useWatchNextGroup({ direction }: Props = {}) {
   useEffect(() => {
     const api = getArrowNavigation()
     const handler = (_group: FocusableGroup, pressedDir: Direction) => {
+      if (!pressedDir) return
       if (!direction || direction === pressedDir) {
         setNextGroup(api.getNextGroup({ direction: direction || pressedDir }) || null)
       }
