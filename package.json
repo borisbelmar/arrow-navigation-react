@@ -32,6 +32,14 @@
   },
   "author": "Boris Belmar <borisbelmarm@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/borisbelmar/arrow-navigation-react/",
+  "bugs": {
+      "url": "https://github.com/borisbelmar/arrow-navigation-react/issues"
+  },
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/borisbelmar/arrow-navigation-react.git"
+  },
   "dependencies": {
     "@arrow-navigation/core": "1.2.4"
   },
