@@ -1,6 +1,6 @@
-import { useFocusableGroup } from '@/components/FocusableGroup/FocusableGroup'
-import type { FocusableElementOptions } from '@/types'
 import { RefObject, useEffect } from 'react'
+import type { FocusableElementOptions } from '@arrow-navigation/core'
+import { useFocusableGroup } from '@/components/FocusableGroup/FocusableGroup'
 
 type Props = {
   ref: RefObject<HTMLElement>

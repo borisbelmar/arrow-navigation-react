@@ -1,5 +1,5 @@
 import { createContext, createElement, ReactNode, useContext, useMemo, useRef } from 'react'
-import type { FocusableElementOptions, FocusableGroupOptions } from '@/types'
+import type { FocusableElementOptions, FocusableGroupOptions } from '@arrow-navigation/core'
 import useFocusableGroupContext from './hooks/useFocusableGroupContext'
 
 type Props = {
