@@ -15,7 +15,8 @@ export default function useWatchLastGroup(
   const [watchGroup, setWatchGroup] = useState<string | null>(group ?? null)
 
   useEffect(() => {
-    const handler = (groupFocused: FocusableGroup) => {
+    const handler = (groupFocused: FocusableGroup, dir: Direction) => {
+      if (!dir) return
       if (group?.toString() && groupFocused.el.id !== group) return
       if (groupPattern && !groupFocused.el.id.match(groupPattern)) {
         setReachedLastGroup(false)
