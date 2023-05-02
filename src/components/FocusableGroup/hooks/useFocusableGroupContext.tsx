@@ -1,6 +1,6 @@
-import type { FocusableElementOptions, FocusableGroupOptions } from '@/types'
 import { getArrowNavigation } from '@arrow-navigation/core'
 import { RefObject, useCallback, useEffect } from 'react'
+import type { FocusableElementOptions, FocusableGroupOptions } from '@arrow-navigation/core'
 
 interface Props {
   groupRef: RefObject<HTMLElement>
