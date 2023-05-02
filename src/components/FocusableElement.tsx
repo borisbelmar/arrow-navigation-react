@@ -1,6 +1,6 @@
 import { createElement, useRef } from 'react'
+import type { FocusableElementOptions } from '@arrow-navigation/core'
 import { useFocusableElement } from '..'
-import type { FocusableElementOptions } from '../types'
 
 type Props = {
   children: React.ReactNode
