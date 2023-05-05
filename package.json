@@ -1,6 +1,6 @@
 {
   "name": "@arrow-navigation/react",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A light and performant React implementation for @arrow-navigation/core package.",
   "publishConfig": {
     "access": "public"
@@ -41,7 +41,7 @@
     "url": "git+https://github.com/borisbelmar/arrow-navigation-react.git"
   },
   "dependencies": {
-    "@arrow-navigation/core": "1.2.5"
+    "@arrow-navigation/core": "1.2.6"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17 || ^18"
