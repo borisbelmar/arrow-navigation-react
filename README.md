@@ -73,7 +73,7 @@ The `FocusableGroup` component will receive all HTML attributes and events for t
 | options.onBlur | function | - | Callback function to be called when the group loses focus. It returns a object with focus result that includes next, current and direction |
 | options.firstElement | string | - | The id of the first element to receive focus when the group receives focus |
 | options.nextGroupByDirection | string | - | The direction to navigate when the last element of the group receives focus. Possible values are: 'up', 'down', 'left' and 'right' |
-| options.saveLast | boolean | false | If true, the last focused element will be saved in firstElement |
+| options.saveLast | boolean | false | If true, the last focused element will be saved and used as firstElement |
 | options.viewportSafe | boolean | true | If true, the navigation will be limited to the viewport |
 | options.threshold | number | 0 | The threshold to intersection discriminator |
 | options.keepFocus | boolean | false | If true, the focus will be kept in the group when the last element receives focus |
