@@ -1,6 +1,6 @@
 {
   "name": "@arrow-navigation/react",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A light and performant React implementation for @arrow-navigation/core package.",
   "publishConfig": {
     "access": "public"
@@ -90,5 +90,27 @@
     "tsconfig-paths-webpack-plugin": "4.0.1",
     "tsup": "6.5.0",
     "typescript": "4.9.3"
-  }
+  },
+  "keywords": [
+    "spatial navigation",
+    "keyboard navigation",
+    "keyboard",
+    "navigation",
+    "arrow keys",
+    "arrow",
+    "react",
+    "reactjs",
+    "typescript",
+    "tsx",
+    "tv navigation",
+    "tv",
+    "focus",
+    "remote control",
+    "remote",
+    "control",
+    "focusable",
+    "tizen",
+    "webos",
+    "web"
+  ]
 }
