@@ -4,7 +4,7 @@ import useArrowNavigation from '../useArrowNavigation'
 
 export default function useWatchElementFocused(id: string) {
   const api = useArrowNavigation()
-  const [focused, setFocused] = useState(api.getFocusedElement()?.el.id === id)
+  const [focused, setFocused] = useState(api.getFocusedElement()?.id === id)
 
   useEffect(() => {
     const onFocus = (element: FocusableElement) => {

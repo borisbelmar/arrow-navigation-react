@@ -36,6 +36,7 @@ describe('useFocusableElement', () => {
         id: 'test-element',
         matches: () => true,
         getAttribute: () => null,
+        setAttribute: jest.fn(),
         focus: jest.fn()
       }
     } as unknown as RefObject<HTMLButtonElement>
