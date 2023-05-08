@@ -20,10 +20,10 @@ export default function useListenLastElementReached(
     const handler = (focusedElement: FocusableElement, dir: Direction) => {
       if (!dir) return
       if (group?.toString() && focusedElement.group !== group) return
-      if (!elementPattern || focusedElement.el.id.match(elementPattern)) {
+      if (!elementPattern || focusedElement.id.match(elementPattern)) {
         const noNextElement = api.getNextElement({ direction, inGroup }) === null
         if (noNextElement) {
-          cb(focusedElement.el.id)
+          cb(focusedElement.id)
         }
       }
     }
