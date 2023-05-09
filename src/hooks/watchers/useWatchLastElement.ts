@@ -18,14 +18,14 @@ export default function useWatchLastElement(
   useEffect(() => {
     const handler = (focusedElement: FocusableElement) => {
       if (group?.toString() && focusedElement.group !== group) return
-      if (elementPattern && !focusedElement.el.id.match(elementPattern)) {
+      if (elementPattern && !focusedElement.id.match(elementPattern)) {
         setReachedLastElement(false)
         return
       }
       const noNextElement = api.getNextElement({ direction, inGroup }) === null
       setReachedLastElement(noNextElement)
       if (noNextElement) {
-        setElement(focusedElement.el.id)
+        setElement(focusedElement.id)
       }
     }
 
