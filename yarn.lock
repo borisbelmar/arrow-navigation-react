@@ -15,10 +15,10 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@arrow-navigation/core@1.2.10":
-  version "1.2.10"
-  resolved "https://registry.yarnpkg.com/@arrow-navigation/core/-/core-1.2.10.tgz#31f46f1dc08f26329da267bf80349cc4f01175b3"
-  integrity sha512-nIM2zdgNt51o0Ai2F1pss0SllKwJu3TqP+VZ4+BzGoXn/yjx2b93YriohRSWooynFXxow4rLdgRJ6sCEnezEVQ==
+"@arrow-navigation/core@1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@arrow-navigation/core/-/core-1.2.11.tgz#3ab52fca26da810812de20a97bfcaf666692c90b"
+  integrity sha512-y//vTU/oSIACxZRvD3/F5VLZr4K3apk+krqunFy5SyZT69Po/DshK9GqIYN0FnJ90lvFBxTfVSBHPf991CBrKw==
 
 "@aw-web-design/x-default-browser@1.4.88":
   version "1.4.88"
