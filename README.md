@@ -77,6 +77,8 @@ The `FocusableGroup` component will receive all HTML attributes and events for t
 | options.viewportSafe | boolean | true | If true, the navigation will be limited to the viewport |
 | options.threshold | number | 0 | The threshold to intersection discriminator |
 | options.keepFocus | boolean | false | If true, the focus will be kept in the group when the last element receives focus |
+| options.byOrder | ORDER | 'horizontal' | Navigate by order setted on elements. Can be 'horizontal', 'vertical' or 'grid', this enum comes with ArrowNavigationOrder constant object. Take care with this option, because this will change the id of the elements, for example, for group-0, the element in order 1 will be group-0-1. It includes a utility function getElementIdByOrder(groupId, order): string. Keep this in mind if you are using the id of the elements for firstElement or nextByDirection options. |
+| options.cols | number - { number: number } | 1 | The number of columns to navigate when the byOrder is 'grid'. The default value is 1 and you can set a object with the number of columns for each breakpoint. For example: { 0: 1, 768: 2, 1024: 3 } |
 
 ### `FocusableElement`
 
@@ -94,6 +96,7 @@ The `FocusableElement` component will receive all HTML attributes and events for
 | options.onFocus | function | - | Callback function to be called when the element receives focus. It returns a object with focus result that includes prev, current and direction |
 | options.onBlur | function | - | Callback function to be called when the element loses focus. It returns a object with focus result that includes next, current and direction |
 | options.nextElementByDirection | string | - | The direction to navigate when the element receives focus. Possible values are: 'up', 'down', 'left' and 'right' |
+| options.order | number | - | The order of the element. No default value. This is needed when the group is setted to navigate byOrder. If no setted, byOrder will be ignored. |
 
 ## Listeners
 
