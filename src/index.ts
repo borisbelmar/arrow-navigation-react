@@ -1,4 +1,11 @@
-export { initArrowNavigation, getArrowNavigation, ArrowNavigationEvents } from '@arrow-navigation/core'
+export {
+  initArrowNavigation,
+  getArrowNavigation,
+  ArrowNavigationEvents,
+  ArrowNavigationOrder,
+  getElementIdByOrder
+} from '@arrow-navigation/core'
+
 export type {
   FocusableElement as IFocusableElement,
   FocusableGroup as IFocusableGroup,
@@ -6,5 +13,6 @@ export type {
   FocusableGroupOptions,
   Direction
 } from '@arrow-navigation/core'
+
 export * from './components'
 export * from './hooks'
