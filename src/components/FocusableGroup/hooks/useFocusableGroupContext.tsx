@@ -1,35 +1,90 @@
-import { getArrowNavigation } from '@arrow-navigation/core'
-import { RefObject, useCallback, useEffect } from 'react'
-import type { FocusableElementOptions, FocusableGroupOptions } from '@arrow-navigation/core'
+import { FocusableGroupOptions, getArrowNavigation } from '@arrow-navigation/core'
+import { useCallback, useEffect, useMemo } from 'react'
+import type { FocusableElementOptions } from '@arrow-navigation/core'
+import type { GroupOptions } from '../FocusableGroup'
 
-interface Props {
-  groupRef: RefObject<HTMLElement>
-  options?: FocusableGroupOptions
-}
+type Props = {
+  groupId: string
+} & GroupOptions
 
-export default function useFocusableGroupContext({ groupRef, options }: Props) {
+export default function useFocusableGroupContext({
+  groupId,
+  firstElement,
+  nextDown,
+  nextLeft,
+  nextRight,
+  nextUp,
+  byOrder,
+  cols,
+  saveLast,
+  viewportSafe,
+  threshold,
+  onFocus,
+  onBlur,
+  keepFocus,
+  arrowDebounce
+}: Props) {
   const arrowNavigationApi = getArrowNavigation()
 
   const registerElement = useCallback((
-    element: HTMLElement,
+    id: string,
     elOptions?: FocusableElementOptions
   ) => {
-    arrowNavigationApi.registerElement(element, groupRef.current?.id || '', elOptions)
-  }, [arrowNavigationApi, groupRef])
+    arrowNavigationApi.registerElement(id, groupId, elOptions)
+  }, [arrowNavigationApi, groupId])
 
-  const unregisterElement = useCallback((element: HTMLElement) => {
-    arrowNavigationApi.unregisterElement(element)
+  const unregisterElement = useCallback((id: string) => {
+    arrowNavigationApi.unregisterElement(id)
   }, [arrowNavigationApi])
 
+  const options: FocusableGroupOptions = useMemo(() => ({
+    firstElement,
+    nextGroupByDirection: {
+      up: nextUp,
+      down: nextDown,
+      left: nextLeft,
+      right: nextRight
+    },
+    byOrder,
+    cols,
+    saveLast,
+    viewportSafe,
+    threshold,
+    onFocus,
+    onBlur,
+    keepFocus,
+    arrowDebounce
+  }), [
+    firstElement,
+    nextUp,
+    nextDown,
+    nextLeft,
+    nextRight,
+    byOrder,
+    cols,
+    saveLast,
+    viewportSafe,
+    threshold,
+    onFocus,
+    onBlur,
+    keepFocus,
+    arrowDebounce
+  ])
+
   useEffect(() => {
-    if (!groupRef.current?.id) {
+    if (!groupId) {
       throw new Error('groupRef must be a ref object with a current property containing a HTMLElement with an id')
     }
-    arrowNavigationApi.registerGroup(groupRef.current as HTMLElement, options)
-  }, [groupRef, options, arrowNavigationApi])
+    arrowNavigationApi.registerGroup(groupId, options)
+  }, [groupId, options, arrowNavigationApi])
+
+  useEffect(() => {
+    return () => {
+      arrowNavigationApi.resetGroupState(groupId)
+    }
+  }, [arrowNavigationApi, groupId])
 
   return {
-    groupId: groupRef.current?.id || '',
     registerElement,
     unregisterElement
   }

@@ -1,4 +1,4 @@
-import { ArrowNavigationEvents, Direction, FocusableElement, getArrowNavigation } from '@arrow-navigation/core'
+import { ArrowNavigationEvents, Direction, FocusEventResult, FocusableElement, getArrowNavigation } from '@arrow-navigation/core'
 import { useEffect, useMemo, useState } from 'react'
 
 interface Props {
@@ -14,13 +14,19 @@ export default function useWatchNextElement({ direction, group, inGroup }: Props
   useEffect(() => {
     const api = getArrowNavigation()
 
-    const handler = (el: FocusableElement, pressedDir: Direction) => {
-      if (group?.toString() && el.group !== group) return
+    const handler = ({
+      current: el,
+      direction: pressedDir
+    }: FocusEventResult<FocusableElement>) => {
+      if (group?.toString() && el?.group !== group) return
       if (!direction || direction === pressedDir) {
-        setNextElement(api.getNextElement({ direction: direction || pressedDir, inGroup }))
+        setNextElement(api.getNextElement({
+          direction: direction || pressedDir as Direction,
+          inGroup
+        }))
       }
       if (!direction) {
-        setDir(pressedDir)
+        setDir(pressedDir as Direction)
       }
     }
 

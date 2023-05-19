@@ -10,11 +10,11 @@ A light and performant React implementation for [@arrow-navigation/core]('https:
 ## Installation
 
 ```bash
-npm install @arrow-navigation/react
+npm install --save @arrow-navigation/react @arrow-navigation/core
 
 # or
 
-yarn add @arrow-navigation/react
+yarn add @arrow-navigation/react @arrow-navigation/core
 ```
 
 ## Usage
@@ -68,17 +68,16 @@ The `FocusableGroup` component will receive all HTML attributes and events for t
 | --- | --- | --- | --- |
 | id | string | - | The group id. Must be unique |
 | as | string | div | The HTML tag to be used as wrapper |
-| options | object | - | The options for the group. |
-| options.onFocus | function | - | Callback function to be called when the group receives focus. It returns a object with focus result that includes prev, current and direction |
-| options.onBlur | function | - | Callback function to be called when the group loses focus. It returns a object with focus result that includes next, current and direction |
-| options.firstElement | string | - | The id of the first element to receive focus when the group receives focus |
-| options.nextGroupByDirection | string | - | The direction to navigate when the last element of the group receives focus. Possible values are: 'up', 'down', 'left' and 'right' |
-| options.saveLast | boolean | false | If true, the last focused element will be saved and used as firstElement |
-| options.viewportSafe | boolean | true | If true, the navigation will be limited to the viewport |
-| options.threshold | number | 0 | The threshold to intersection discriminator |
-| options.keepFocus | boolean | false | If true, the focus will be kept in the group when the last element receives focus |
-| options.byOrder | ORDER | 'horizontal' | Navigate by order setted on elements. Can be 'horizontal', 'vertical' or 'grid', this enum comes with ArrowNavigationOrder constant object. Take care with this option, because this will change the id of the elements, for example, for group-0, the element in order 1 will be group-0-1. It includes a utility function getElementIdByOrder(groupId, order): string. Keep this in mind if you are using the id of the elements for firstElement or nextByDirection options. |
-| options.cols | number - { number: number } | 1 | The number of columns to navigate when the byOrder is 'grid'. The default value is 1 and you can set a object with the number of columns for each breakpoint. For example: { 0: 1, 768: 2, 1024: 3 } |
+| onFocus | function | - | Callback function to be called when the group receives focus. It returns a object with focus result that includes prev, current and direction |
+| onBlur | function | - | Callback function to be called when the group loses focus. It returns a object with focus result that includes next, current and direction |
+| firstElement | string | - | The id of the first element to receive focus when the group receives focus |
+| nextUp / nextDown / nextRight / nextLeft | string | - | The next group id by direction. |
+| saveLast | boolean | false | If true, the last focused element will be saved and used as firstElement |
+| viewportSafe | boolean | true | If true, the navigation will be limited to the viewport |
+| threshold | number | 0 | The threshold to intersection discriminator |
+| keepFocus | boolean | false | If true, the focus will be kept in the group when the last element receives focus |
+| byOrder | ORDER | 'horizontal' | Navigate by order setted on elements. Can be 'horizontal', 'vertical' or 'grid', this enum comes with ArrowNavigationOrder constant object. Take care with this option, because this will change the id of the elements, for example, for group-0, the element in order 1 will be group-0-1. It includes a utility function getElementIdByOrder(groupId, order): string. Keep this in mind if you are using the id of the elements for firstElement or nextByDirection options. |
+| cols | number - { number: number } | 1 | The number of columns to navigate when the byOrder is 'grid'. The default value is 1 and you can set a object with the number of columns for each breakpoint. For example: { 0: 1, 768: 2, 1024: 3 } |
 
 ### `FocusableElement`
 
@@ -92,11 +91,44 @@ The `FocusableElement` component will receive all HTML attributes and events for
 | --- | --- | --- | --- |
 | id | string | - | The element id. Must be unique |
 | as | string | div | The HTML tag to be used as wrapper |
-| options | object | - | The options for the element. |
-| options.onFocus | function | - | Callback function to be called when the element receives focus. It returns a object with focus result that includes prev, current and direction |
-| options.onBlur | function | - | Callback function to be called when the element loses focus. It returns a object with focus result that includes next, current and direction |
-| options.nextElementByDirection | string | - | The direction to navigate when the element receives focus. Possible values are: 'up', 'down', 'left' and 'right' |
-| options.order | number | - | The order of the element. No default value. This is needed when the group is setted to navigate byOrder. If no setted, byOrder will be ignored. |
+| onFocus | function | - | Callback function to be called when the element receives focus. It returns a object with focus result that includes prev, current and direction |
+| onBlur | function | - | Callback function to be called when the element loses focus. It returns a object with focus result that includes next, current and direction |
+| nextUp / nextDown / nextRight / nextLeft | string | NextFocusable |  The next element or group by direction. In the case of group, must be an object { kind: 'group', id: 'group-0 } |
+| order | number | - | The order of the element. No default value. This is needed when the group is setted to navigate byOrder. If no setted, byOrder will be ignored. |
+
+
+### `useFocusableElement`
+
+Hook to make an element focusable. The element must be a child of a `FocusableGroup` component and the HTML tag used as wrapper must be focusable, for example, `input`, `button`, `a`, `select`, `textarea`, etc. The hook props are the same as `FocusableElement` component.
+
+#### Usage
+
+```jsx
+import { useFocusableElement } from '@arrow-navigation/react'
+
+const MyButton = ({ id }) => {
+  // Is important to pass the id to the hook and to the button
+  useFocusableElement({ id })
+
+  return (
+    <button id={id}>
+      Button 1
+    </button>
+  )
+}
+
+const App = () => {
+  return (
+    <div>
+      <FocusableGroup id="group-1">
+        <MyButton id="btn-1" />
+        <MyButton id="btn-2" />
+        <MyButton id="btn-3" />
+      </FocusableGroup>
+    </div>
+  )
+}
+```
 
 ## Listeners
 

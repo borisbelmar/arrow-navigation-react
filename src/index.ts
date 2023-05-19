@@ -11,7 +11,9 @@ export type {
   FocusableGroup as IFocusableGroup,
   FocusableElementOptions,
   FocusableGroupOptions,
-  Direction
+  Direction,
+  FocusEventResult,
+  BlurEventResult
 } from '@arrow-navigation/core'
 
 export * from './components'

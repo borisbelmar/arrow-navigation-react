@@ -1,25 +1,50 @@
-import { createElement, useRef } from 'react'
-import type { FocusableElementOptions } from '@arrow-navigation/core'
+import { createElement } from 'react'
+import type { FocusableByDirection, FocusableElementOptions } from '@arrow-navigation/core'
 import { useFocusableElement } from '..'
 
+export type Options = {
+  order?: FocusableElementOptions['order']
+  onFocus?: FocusableElementOptions['onFocus']
+  onBlur?: FocusableElementOptions['onBlur']
+  nextUp?: FocusableByDirection['up']
+  nextDown?: FocusableByDirection['down']
+  nextLeft?: FocusableByDirection['left']
+  nextRight?: FocusableByDirection['right']
+}
+
 type Props = {
+  id: string
   children: React.ReactNode
   as?: React.ElementType
-  options?: FocusableElementOptions
-} & React.HTMLAttributes<HTMLDivElement>
+} & Options & React.HTMLAttributes<HTMLDivElement>
 
 export default function FocusableElement({
   children,
+  id,
   as = 'button',
-  options,
+  onFocus,
+  onBlur,
+  order,
+  nextDown,
+  nextLeft,
+  nextRight,
+  nextUp,
   ...props
 }: Props) {
-  const ref = useRef(null)
-  useFocusableElement({ options, ref })
+  useFocusableElement({
+    id,
+    nextDown,
+    nextLeft,
+    nextRight,
+    nextUp,
+    onFocus,
+    onBlur,
+    order
+  })
 
   return createElement(
     as,
-    { ...props, ref },
+    { ...props, id },
     children
   )
 }

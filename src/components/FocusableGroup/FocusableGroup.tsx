@@ -1,18 +1,34 @@
-import { createContext, createElement, ReactNode, useContext, useMemo, useRef } from 'react'
-import type { FocusableElementOptions, FocusableGroupOptions } from '@arrow-navigation/core'
+import { createContext, createElement, ReactNode, useContext, useMemo } from 'react'
+import type { FocusableElementOptions, FocusEventResult, FocusableGroupConfig, BlurEventResult } from '@arrow-navigation/core'
 import useFocusableGroupContext from './hooks/useFocusableGroupContext'
+
+export type GroupOptions = {
+  firstElement?: string,
+  byOrder?: 'horizontal' | 'vertical' | 'grid'
+  cols?: number | Record<number, number>
+  saveLast?: boolean
+  viewportSafe?: boolean
+  threshold?: number
+  onFocus?: (result: FocusEventResult<FocusableGroupConfig>) => void
+  onBlur?: (result: BlurEventResult<FocusableGroupConfig>) => void
+  keepFocus?: boolean
+  arrowDebounce?: boolean
+  nextUp?: string
+  nextDown?: string
+  nextLeft?: string
+  nextRight?: string
+}
 
 type Props = {
   id: string
   children: ReactNode
   as?: React.ElementType
-  options?: FocusableGroupOptions
-} & React.HTMLAttributes<HTMLDivElement>
+} & GroupOptions & React.HTMLAttributes<HTMLDivElement>
 
 type ContextValue = {
   groupId: string
-  registerElement: (element: HTMLElement, options?: FocusableElementOptions) => void
-  unregisterElement: (element: HTMLElement) => void
+  registerElement: (id: string, options?: FocusableElementOptions) => void
+  unregisterElement: (id: string) => void
 }
 
 const GroupContext = createContext<ContextValue | null>(null)
@@ -21,15 +37,42 @@ export function FocusableGroup({
   id,
   as = 'div',
   children,
-  options,
+  firstElement,
+  byOrder,
+  cols,
+  saveLast,
+  viewportSafe,
+  threshold,
+  onFocus,
+  onBlur,
+  keepFocus,
+  arrowDebounce,
+  nextUp,
+  nextDown,
+  nextLeft,
+  nextRight,
   ...props
 }: Props) {
-  const ref = useRef(null)
-
   const {
     registerElement,
     unregisterElement
-  } = useFocusableGroupContext({ groupRef: ref, options })
+  } = useFocusableGroupContext({
+    groupId: id,
+    firstElement,
+    nextUp,
+    nextDown,
+    nextLeft,
+    nextRight,
+    byOrder,
+    cols,
+    saveLast,
+    viewportSafe,
+    threshold,
+    onFocus,
+    onBlur,
+    keepFocus,
+    arrowDebounce
+  })
 
   const value = useMemo(() => ({
     groupId: id,
@@ -41,7 +84,6 @@ export function FocusableGroup({
     as,
     {
       ...props,
-      ref,
       id
     },
     (

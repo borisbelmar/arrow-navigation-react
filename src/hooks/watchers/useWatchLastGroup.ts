@@ -1,4 +1,4 @@
-import { ArrowNavigationEvents, Direction, FocusableGroup, getArrowNavigation } from '@arrow-navigation/core'
+import { ArrowNavigationEvents, Direction, FocusEventResult, FocusableElement, getArrowNavigation } from '@arrow-navigation/core'
 import { useEffect, useMemo, useState } from 'react'
 
 interface Options {
@@ -15,17 +15,20 @@ export default function useWatchLastGroup(
   const [watchGroup, setWatchGroup] = useState<string | null>(group ?? null)
 
   useEffect(() => {
-    const handler = (groupFocused: FocusableGroup, dir: Direction) => {
+    const handler = ({
+      current: groupFocused,
+      direction: dir
+    }: FocusEventResult<FocusableElement>) => {
       if (!dir) return
-      if (group?.toString() && groupFocused.id !== group) return
-      if (groupPattern && !groupFocused.id.match(groupPattern)) {
+      if (group?.toString() && groupFocused?.id !== group) return
+      if (groupPattern && !groupFocused?.id.match(groupPattern)) {
         setReachedLastGroup(false)
         return
       }
       const noNextGroup = api.getNextGroup({ direction }) === null
       setReachedLastGroup(noNextGroup)
       if (noNextGroup) {
-        setWatchGroup(groupFocused.el?.id)
+        setWatchGroup(groupFocused?.id || null)
       }
     }
 
