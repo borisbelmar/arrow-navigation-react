@@ -1,4 +1,4 @@
-import { ArrowNavigationEvents, FocusableElement } from '@arrow-navigation/core'
+import { ArrowNavigationEvents, FocusEventResult, FocusableElement } from '@arrow-navigation/core'
 import { useEffect } from 'react'
 import useArrowNavigation from '../useArrowNavigation'
 
@@ -8,8 +8,8 @@ export default function useListenElementFocused(cb: Callback, id: string) {
   const api = useArrowNavigation()
 
   useEffect(() => {
-    const onFocus = (element: FocusableElement) => {
-      if (element?.el?.id === id) {
+    const onFocus = ({ current }: FocusEventResult<FocusableElement>) => {
+      if (current?.id === id) {
         cb()
       }
     }

@@ -15,6 +15,7 @@ describe('useListenLastElementReached', () => {
     const id = 'test'
     const element = document.createElement('button')
     element.id = id
+    document.body.appendChild(element)
 
     const api = getArrowNavigation()
 
@@ -22,7 +23,9 @@ describe('useListenLastElementReached', () => {
 
     expect(result.current).toBeUndefined()
 
-    api.registerElement(element, 'test-group')
+    api.registerElement(id, 'test-group')
+
+    api.setFocusElement(id)
 
     expect(cb).toHaveBeenCalledTimes(1)
   })

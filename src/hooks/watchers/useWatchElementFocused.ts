@@ -1,4 +1,4 @@
-import { ArrowNavigationEvents, FocusableElement } from '@arrow-navigation/core'
+import { ArrowNavigationEvents, FocusEventResult, FocusableElement } from '@arrow-navigation/core'
 import { useEffect, useState } from 'react'
 import useArrowNavigation from '../useArrowNavigation'
 
@@ -7,8 +7,8 @@ export default function useWatchElementFocused(id: string) {
   const [focused, setFocused] = useState(api.getFocusedElement()?.id === id)
 
   useEffect(() => {
-    const onFocus = (element: FocusableElement) => {
-      setFocused(element?.el?.id === id)
+    const onFocus = ({ current }: FocusEventResult<FocusableElement>) => {
+      setFocused(current?.id === id)
     }
 
     api.on(ArrowNavigationEvents.CURRENT_ELEMENT_CHANGE, onFocus)
