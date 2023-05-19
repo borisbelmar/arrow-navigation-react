@@ -47,12 +47,9 @@ describe('useFocusableGroup', () => {
   })
 
   it('should return the group context', () => {
-    jest.spyOn(React, 'useRef').mockReturnValueOnce({
-      current: {
-        id: 'test-group'
-      }
-    })
-
+    document.getElementById = jest.fn().mockReturnValueOnce(
+      document.createElement('div').id = 'test-group'
+    )
     const { result } = renderHook(() => useFocusableGroup(), {
       wrapper: ({ children }: { children: ReactNode }) => (
         <FocusableGroup id="test-group">
@@ -61,7 +58,6 @@ describe('useFocusableGroup', () => {
       )
     })
 
-    expect(result.current.groupId).toBe('test-group')
     expect(result.current.registerElement).toBeDefined()
     expect(result.current.unregisterElement).toBeDefined()
   })

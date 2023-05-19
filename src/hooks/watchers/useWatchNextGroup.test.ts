@@ -21,27 +21,34 @@ describe('useWatchNextGroup', () => {
 
     const group1 = document.createElement('div')
     group1.id = 'test-group-1'
-    api.registerGroup(group1, { nextGroupByDirection: { right: 'test-group-2' } })
+    document.body.appendChild(group1)
+    api.registerGroup(group1.id, { nextGroupByDirection: { right: 'test-group-2' } })
 
     const group2 = document.createElement('div')
     group2.id = 'test-group-2'
-    api.registerGroup(group2, { nextGroupByDirection: { left: 'test-group-1', right: 'test-group-3' } })
+    document.body.appendChild(group2)
+    api.registerGroup(group2.id, { nextGroupByDirection: { left: 'test-group-1', right: 'test-group-3' } })
 
     const group3 = document.createElement('div')
     group3.id = 'test-group-3'
-    api.registerGroup(group3, { nextGroupByDirection: { left: 'test-group-2' } })
+    document.body.appendChild(group3)
+    api.registerGroup(group3.id, { nextGroupByDirection: { left: 'test-group-2' } })
 
     const element1 = document.createElement('button')
     element1.id = 'test-1'
-    api.registerElement(element1, 'test-group-1', { nextElementByDirection: { right: 'test-2' } })
+    group1.appendChild(element1)
+    api.registerElement(element1.id, group1.id, { nextByDirection: { right: 'test-2' } })
+    api.setFocusElement(element1.id)
 
     const element2 = document.createElement('button')
     element2.id = 'test-2'
-    api.registerElement(element2, 'test-group-2', { nextElementByDirection: { left: 'test-1', right: 'test-3' } })
+    group2.appendChild(element2)
+    api.registerElement(element2.id, group2.id, { nextByDirection: { left: 'test-1', right: 'test-3' } })
 
     const element3 = document.createElement('button')
     element3.id = 'test-3'
-    api.registerElement(element3, 'test-group-3', { nextElementByDirection: { left: 'test-2' } })
+    group3.appendChild(element3)
+    api.registerElement(element3.id, group3.id, { nextByDirection: { left: 'test-2' } })
 
     expect(result.current.nextGroup).toBeNull()
 

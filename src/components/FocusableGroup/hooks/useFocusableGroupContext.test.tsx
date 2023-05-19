@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-import { RefObject } from 'react'
 import { renderHook } from '@testing-library/react-hooks'
 import { getArrowNavigation, initArrowNavigation } from '@arrow-navigation/core'
 import useFocusableGroupContext from './useFocusableGroupContext'
@@ -10,46 +9,43 @@ describe('useFocusableGroupContext', () => {
 
   const TEST_GROUP_ID = 'test-group'
 
-  const ref = {
-    current: {
-      id: TEST_GROUP_ID
-    }
-  } as RefObject<HTMLElement>
-
   beforeEach(() => {
     initArrowNavigation({ debug: true })
   })
 
   it('should register a group', () => {
-    const { result } = renderHook(() => useFocusableGroupContext({ groupRef: ref }))
+    const group = document.createElement('div')
+    group.id = TEST_GROUP_ID
+    document.body.appendChild(group)
+    const { result } = renderHook(() => useFocusableGroupContext({ groupId: TEST_GROUP_ID }))
 
     const api = getArrowNavigation()
 
-    expect(result.current.groupId).toBe(TEST_GROUP_ID)
     expect(result.current.registerElement).toBeDefined()
     expect(result.current.unregisterElement).toBeDefined()
     expect(api.getGroupConfig(TEST_GROUP_ID)).toBeDefined()
   })
 
   it('should register and unregister an element from group', () => {
-    const { result } = renderHook(() => useFocusableGroupContext({ groupRef: ref }))
+    const { result } = renderHook(() => useFocusableGroupContext({ groupId: TEST_GROUP_ID }))
     const element = document.createElement('button')
     element.id = 'test-element'
-    result.current.registerElement(element)
+    document.body.appendChild(element)
+    result.current.registerElement(element.id)
 
     const api = getArrowNavigation()
 
     expect(api.getRegisteredElements().has(element.id)).toBeDefined()
     expect(api._getState()?.groups.get(TEST_GROUP_ID)?.elements.has(element.id)).toBeDefined()
 
-    result.current.unregisterElement(element)
+    result.current.unregisterElement(element.id)
 
     expect(api.getRegisteredElements().has(element.id)).toBeFalsy()
     expect(api._getState()?.groups.get(TEST_GROUP_ID)?.elements.has(element.id)).toBeFalsy()
   })
 
   it('should throw an error if used without a ref node without id', () => {
-    const { result } = renderHook(() => useFocusableGroupContext({ groupRef: { current: null } }))
+    const { result } = renderHook(() => useFocusableGroupContext({ groupId: '' }))
 
     expect(result.error).toBeDefined()
     expect(result.error?.message).toBe('groupRef must be a ref object with a current property containing a HTMLElement with an id')

@@ -1,4 +1,4 @@
-import { ArrowNavigationEvents, Direction, FocusableGroup, getArrowNavigation } from '@arrow-navigation/core'
+import { ArrowNavigationEvents, Direction, FocusEventResult, FocusableGroup, getArrowNavigation } from '@arrow-navigation/core'
 import { useEffect } from 'react'
 
 export type LastGroupCallback = (group: string | null) => void
@@ -16,13 +16,16 @@ export default function useListenLastGroupReached(
   const api = getArrowNavigation()
 
   useEffect(() => {
-    const handler = (groupFocused: FocusableGroup, dir: Direction) => {
+    const handler = ({
+      current: groupFocused,
+      direction: dir
+    }: FocusEventResult<FocusableGroup>) => {
       if (!dir) return
-      if (group?.toString() && groupFocused.id !== group) return
-      if (!groupPattern || groupFocused.id.match(groupPattern)) {
+      if (group?.toString() && groupFocused?.id !== group) return
+      if (!groupPattern || groupFocused?.id.match(groupPattern)) {
         const noNextGroup = api.getNextGroup({ direction }) === null
         if (noNextGroup) {
-          cb(groupFocused.el?.id)
+          cb(groupFocused?.id || null)
         }
       }
     }

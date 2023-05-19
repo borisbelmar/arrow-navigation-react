@@ -21,11 +21,14 @@ describe('useListenLastElementReached', () => {
 
     const element1 = document.createElement('button')
     element1.id = 'test-1'
-    api.registerElement(element1, 'test-group', { nextElementByDirection: { right: 'test-2' } })
+    document.body.appendChild(element1)
+    api.registerElement(element1.id, 'test-group', { nextByDirection: { right: 'test-2' } })
+    api.setFocusElement(element1.id)
 
     const element2 = document.createElement('button')
     element2.id = 'test-2'
-    api.registerElement(element2, 'test-group', { nextElementByDirection: { left: 'test-1' } })
+    document.body.appendChild(element2)
+    api.registerElement(element2.id, 'test-group', { nextByDirection: { left: 'test-1' } })
 
     api._forceNavigate('ArrowRight')
 
