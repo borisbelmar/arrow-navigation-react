@@ -1,6 +1,6 @@
 {
   "name": "@arrow-navigation/react",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "description": "A light and performant React implementation for @arrow-navigation/core package.",
   "publishConfig": {
     "access": "public"
