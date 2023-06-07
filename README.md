@@ -17,6 +17,12 @@ npm install --save @arrow-navigation/react @arrow-navigation/core
 yarn add @arrow-navigation/react @arrow-navigation/core
 ```
 
+### Disclaimer
+
+The `@arrow-navigation/react` package is a wrapper for the `@arrow-navigation/core` package. It is not a replacement for the `@arrow-navigation/core` package. You must install both packages to use the `@arrow-navigation/react` package.
+
+Check peer dependencies for more information about the `@arrow-navigation/core` package and versions.
+
 ## Usage
 
 ```jsx

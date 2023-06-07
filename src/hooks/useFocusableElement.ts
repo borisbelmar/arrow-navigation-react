@@ -1,7 +1,7 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useFocusableGroup } from '@/components/FocusableGroup/FocusableGroup'
 import { Options } from '@/components/FocusableElement'
-import { FocusableElementOptions } from '@arrow-navigation/core'
+import { FocusableElementOptions, getArrowNavigation } from '@arrow-navigation/core'
 
 type Props = {
   id: string
@@ -17,6 +17,7 @@ export default function useFocusableElement({
   onBlur,
   onFocus
 }: Props) {
+  const idRef = useRef<string | null>(null)
   const { registerElement, unregisterElement } = useFocusableGroup()
 
   const options: FocusableElementOptions = useMemo(() => ({
@@ -40,10 +41,17 @@ export default function useFocusableElement({
   ])
 
   useEffect(() => {
-    registerElement(id, options)
+    if (idRef.current !== id) {
+      registerElement(id, options)
+      idRef.current = id
+    } else {
+      getArrowNavigation().updateElement(id, options)
+    }
+  }, [options, registerElement, id])
 
+  useEffect(() => {
     return () => {
       unregisterElement(id)
     }
-  }, [options, registerElement, unregisterElement, id])
+  }, [unregisterElement, id])
 }
