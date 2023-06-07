@@ -1,4 +1,4 @@
-import { initArrowNavigation } from '@arrow-navigation/core'
+import { getArrowNavigation, initArrowNavigation } from '@arrow-navigation/core'
 import { renderHook } from '@testing-library/react-hooks'
 import React from 'react'
 import { FocusableGroup } from '..'
@@ -38,5 +38,40 @@ describe('useFocusableElement', () => {
     })
 
     expect(result.current).toBeUndefined()
+  })
+
+  it('should update element options', () => {
+    const id = 'test-element'
+    const element = document.createElement('button')
+    element.id = id
+    document.body.appendChild(element)
+
+    const api = getArrowNavigation()
+
+    jest.spyOn(api, 'updateElement')
+    jest.spyOn(api, 'registerElement')
+
+    const hook = renderHook(({ elementId, nextDown }) => useFocusableElement({
+      id: elementId,
+      nextDown
+    }), {
+      wrapper: ({ children }: {
+        children?: React.ReactNode,
+        elementId: string,
+        nextDown: string
+      }) => (
+        <FocusableGroup id="test-group">
+          {children}
+        </FocusableGroup>
+      ),
+      initialProps: { elementId: id, nextDown: 'test' }
+    })
+
+    expect(api.updateElement).not.toHaveBeenCalled()
+    expect(api.registerElement).toHaveBeenCalled()
+
+    hook.rerender({ elementId: id, nextDown: 'test-2' })
+
+    expect(api.updateElement).toHaveBeenCalled()
   })
 })

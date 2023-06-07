@@ -1,5 +1,5 @@
 import { FocusableGroupOptions, getArrowNavigation } from '@arrow-navigation/core'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import type { FocusableElementOptions } from '@arrow-navigation/core'
 import type { GroupOptions } from '../FocusableGroup'
 
@@ -24,6 +24,7 @@ export default function useFocusableGroupContext({
   keepFocus,
   arrowDebounce
 }: Props) {
+  const idRef = useRef<string | null>(null)
   const arrowNavigationApi = getArrowNavigation()
 
   const registerElement = useCallback((
@@ -75,7 +76,12 @@ export default function useFocusableGroupContext({
     if (!groupId) {
       throw new Error('groupRef must be a ref object with a current property containing a HTMLElement with an id')
     }
-    arrowNavigationApi.registerGroup(groupId, options)
+    if (idRef.current !== groupId) {
+      arrowNavigationApi.registerGroup(groupId, options)
+      idRef.current = groupId
+    } else {
+      arrowNavigationApi.updateGroup(groupId, options)
+    }
   }, [groupId, options, arrowNavigationApi])
 
   useEffect(() => {

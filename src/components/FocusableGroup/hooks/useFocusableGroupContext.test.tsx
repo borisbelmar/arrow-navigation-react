@@ -50,4 +50,38 @@ describe('useFocusableGroupContext', () => {
     expect(result.error).toBeDefined()
     expect(result.error?.message).toBe('groupRef must be a ref object with a current property containing a HTMLElement with an id')
   })
+
+  it('should update group options', () => {
+    const group = document.createElement('div')
+    const TEST_ELEMENT = 'test-element'
+    group.id = TEST_GROUP_ID
+    document.body.appendChild(group)
+
+    const api = getArrowNavigation()
+
+    jest.spyOn(api, 'updateGroup')
+    jest.spyOn(api, 'registerGroup')
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const hook = renderHook(({ groupId, firstElement }) => useFocusableGroupContext({
+      groupId,
+      firstElement
+    }), {
+      initialProps: {
+        groupId: TEST_GROUP_ID,
+        firstElement: TEST_ELEMENT
+      }
+    })
+
+    expect(api.registerGroup).toHaveBeenCalled()
+
+    hook.rerender({
+      groupId: TEST_GROUP_ID,
+      firstElement: 'another-element'
+    })
+
+    expect(api.updateGroup).toHaveBeenCalled()
+
+    hook.unmount()
+  })
 })
